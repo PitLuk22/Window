@@ -31,6 +31,9 @@ function modals(triggerSelector, modalSelector, crossSelector, closeClickOverlay
         //делаем неактивные кнопки при формиравании modalState
         if (elem.classList.contains('popup_calc_button') || elem.classList.contains('popup_calc_profile_button')) {
             elem.disabled = true;
+            elem.style.background = 'grey';
+            elem.style.boxShadow = '0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22)';
+            elem.style.border = '1px solid grey';
         }
 
         elem.addEventListener('click', (event) => {

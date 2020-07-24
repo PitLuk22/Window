@@ -38,10 +38,18 @@ const changeModalState = (state) => {
                 }
                 console.log(state);
                 if (state.form !== undefined && state.width !== undefined && state.height !== undefined) {
-                    document.querySelector('.popup_calc_button').disabled = false;
+                    const btn = document.querySelector('.popup_calc_button');
+                    btn.disabled = false;
+                    btn.style.background = 'linear-gradient(180deg, #ffed26 0%, #ffb400 100%)';
+                    btn.style.boxShadow = '1px 2px 20px 0px rgba(255, 153, 0, 0.4)';
+                    btn.style.border = '1px solid #ffc600';
                 }
                 if (state.type !== undefined && state.temp !== undefined) {
-                    document.querySelector('.popup_calc_profile_button').disabled = false;
+                    let btn = document.querySelector('.popup_calc_profile_button');
+                    btn.disabled = false;
+                    btn.style.background = 'linear-gradient(180deg, #ffed26 0%, #ffb400 100%)';
+                    btn.style.boxShadow = '1px 2px 20px 0px rgba(255, 153, 0, 0.4)';
+                    btn.style.border = '1px solid #ffc600';
                 }
             });
         });

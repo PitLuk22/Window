@@ -17810,7 +17810,9 @@ __webpack_require__.r(__webpack_exports__);
 window.addEventListener('DOMContentLoaded', function () {
   "use strict";
 
-  var modalState = {};
+  var modalState = {
+    type: 'tree'
+  };
   Object(_modules_changeModalState__WEBPACK_IMPORTED_MODULE_4__["default"])(modalState);
   Object(_modules_modals__WEBPACK_IMPORTED_MODULE_1__["default"])('.popup_engineer_btn', '.popup_engineer', '.popup_engineer .popup_close');
   Object(_modules_modals__WEBPACK_IMPORTED_MODULE_1__["default"])('.phone_link', '.popup[data-modal=""]', '.popup_close');
@@ -17883,11 +17885,20 @@ var changeModalState = function changeModalState(state) {
         console.log(state);
 
         if (state.form !== undefined && state.width !== undefined && state.height !== undefined) {
-          document.querySelector('.popup_calc_button').disabled = false;
+          var btn = document.querySelector('.popup_calc_button');
+          btn.disabled = false;
+          btn.style.background = 'linear-gradient(180deg, #ffed26 0%, #ffb400 100%)';
+          btn.style.boxShadow = '1px 2px 20px 0px rgba(255, 153, 0, 0.4)';
+          btn.style.border = '1px solid #ffc600';
         }
 
         if (state.type !== undefined && state.temp !== undefined) {
-          document.querySelector('.popup_calc_profile_button').disabled = false;
+          var _btn = document.querySelector('.popup_calc_profile_button');
+
+          _btn.disabled = false;
+          _btn.style.background = 'linear-gradient(180deg, #ffed26 0%, #ffb400 100%)';
+          _btn.style.boxShadow = '1px 2px 20px 0px rgba(255, 153, 0, 0.4)';
+          _btn.style.border = '1px solid #ffc600';
         }
       });
     });
@@ -18117,6 +18128,9 @@ function modals(triggerSelector, modalSelector, crossSelector) {
     //делаем неактивные кнопки при формиравании modalState
     if (elem.classList.contains('popup_calc_button') || elem.classList.contains('popup_calc_profile_button')) {
       elem.disabled = true;
+      elem.style.background = 'grey';
+      elem.style.boxShadow = '0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22)';
+      elem.style.border = '1px solid grey';
     }
 
     elem.addEventListener('click', function (event) {
