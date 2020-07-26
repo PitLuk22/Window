@@ -17807,18 +17807,22 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
 window.addEventListener('DOMContentLoaded', function () {
   "use strict";
 
+  var modalTimerId = setTimeout(function () {
+    return Object(_modules_modals__WEBPACK_IMPORTED_MODULE_1__["openModal"])('.popup[data-modal]', Object(_modules_modals__WEBPACK_IMPORTED_MODULE_1__["calcScroll"])(), modalTimerId);
+  }, 5000);
   var modalState = {
     type: 'tree'
   };
   Object(_modules_changeModalState__WEBPACK_IMPORTED_MODULE_4__["default"])(modalState);
-  Object(_modules_modals__WEBPACK_IMPORTED_MODULE_1__["default"])('.popup_engineer_btn', '.popup_engineer', '.popup_engineer .popup_close');
-  Object(_modules_modals__WEBPACK_IMPORTED_MODULE_1__["default"])('.phone_link', '.popup[data-modal=""]', '.popup_close');
-  Object(_modules_modals__WEBPACK_IMPORTED_MODULE_1__["default"])('.popup_calc_btn', '.popup_calc', '.popup_calc_close');
-  Object(_modules_modals__WEBPACK_IMPORTED_MODULE_1__["default"])('.popup_calc_button', '.popup_calc_profile', '.popup_calc_profile_close', false);
-  Object(_modules_modals__WEBPACK_IMPORTED_MODULE_1__["default"])('.popup_calc_profile_button', '.popup_calc_end', '.popup_calc_end_close', false);
+  Object(_modules_modals__WEBPACK_IMPORTED_MODULE_1__["default"])('.popup_engineer_btn', '.popup_engineer', '.popup_engineer .popup_close', modalTimerId);
+  Object(_modules_modals__WEBPACK_IMPORTED_MODULE_1__["default"])('.phone_link', '.popup[data-modal=""]', '.popup_close', modalTimerId);
+  Object(_modules_modals__WEBPACK_IMPORTED_MODULE_1__["default"])('.popup_calc_btn', '.popup_calc', '.popup_calc_close', modalTimerId);
+  Object(_modules_modals__WEBPACK_IMPORTED_MODULE_1__["default"])('.popup_calc_button', '.popup_calc_profile', '.popup_calc_profile_close', modalTimerId, false);
+  Object(_modules_modals__WEBPACK_IMPORTED_MODULE_1__["default"])('.popup_calc_profile_button', '.popup_calc_end', '.popup_calc_end_close', modalTimerId, false);
   Object(_modules_tabs__WEBPACK_IMPORTED_MODULE_2__["default"])('.glazing_slider', '.glazing_block', '.glazing_content', 'active');
   Object(_modules_tabs__WEBPACK_IMPORTED_MODULE_2__["default"])('.decoration_slider', '.no_click', '.decoration_content > div > div', 'after_click');
   Object(_modules_tabs__WEBPACK_IMPORTED_MODULE_2__["default"])('.balcon_icons', '.balcon_icons_img', '.big_img > img', 'do_image_more', 'inline-block');
@@ -18085,12 +18089,14 @@ var images = function images() {
 /*!**********************************!*\
   !*** ./src/js/modules/modals.js ***!
   \**********************************/
-/*! exports provided: default, closeModal */
+/*! exports provided: default, openModal, closeModal, calcScroll */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "openModal", function() { return openModal; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "closeModal", function() { return closeModal; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "calcScroll", function() { return calcScroll; });
 /* harmony import */ var core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! core-js/modules/web.dom-collections.for-each */ "./node_modules/core-js/modules/web.dom-collections.for-each.js");
 /* harmony import */ var core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_0__);
 
@@ -18108,10 +18114,23 @@ function closeModal(modalSelector) {
   modal.style.display = 'none';
   document.body.style.overflow = '';
   modal.style.marginRight = "0px";
+} // Расчет ширины скролла браузера
+
+
+function calcScroll() {
+  var div = document.createElement('div');
+  div.style.width = '50px';
+  div.style.height = '50px';
+  div.style.overflowY = 'scroll';
+  div.style.visibility = 'hidden';
+  document.body.append(div);
+  var scroll = div.offsetWidth - div.clientWidth;
+  div.remove();
+  return scroll;
 }
 
-function modals(triggerSelector, modalSelector, crossSelector) {
-  var closeClickOverlay = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : true;
+function modals(triggerSelector, modalSelector, crossSelector, modalTimerId) {
+  var closeClickOverlay = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : true;
   var triggerModal = document.querySelectorAll(triggerSelector);
   var modal = document.querySelector(modalSelector);
   var cross = document.querySelector(crossSelector);
@@ -18137,7 +18156,7 @@ function modals(triggerSelector, modalSelector, crossSelector) {
       if (event.target) {
         event.preventDefault();
         closeAll();
-        openModal(modalSelector, scroll);
+        openModal(modalSelector, scroll, modalTimerId);
       }
     });
   });
@@ -18156,20 +18175,7 @@ function modals(triggerSelector, modalSelector, crossSelector) {
       closeAll();
       closeModal(modalSelector);
     }
-  }); // const modalTimerId = setTimeout(() => openModal('.popup', scroll, modalTimerId), 60000);
-  // Расчет ширины скролла браузера
-
-  function calcScroll() {
-    var div = document.createElement('div');
-    div.style.width = '50px';
-    div.style.height = '50px';
-    div.style.overflowY = 'scroll';
-    div.style.visibility = 'hidden';
-    document.body.append(div);
-    var scroll = div.offsetWidth - div.clientWidth;
-    div.remove();
-    return scroll;
-  }
+  });
 }
 
 /* harmony default export */ __webpack_exports__["default"] = (modals);

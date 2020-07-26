@@ -13,7 +13,22 @@ function closeModal(modalSelector) {
     modal.style.marginRight = `0px`;
 }
 
-function modals(triggerSelector, modalSelector, crossSelector, closeClickOverlay = true) {
+// Расчет ширины скролла браузера
+function calcScroll() {
+    const div = document.createElement('div');
+    div.style.width = '50px';
+    div.style.height = '50px';
+    div.style.overflowY = 'scroll';
+    div.style.visibility = 'hidden';
+
+    document.body.append(div);
+    const scroll = div.offsetWidth - div.clientWidth;
+    div.remove();
+
+    return scroll;
+}
+
+function modals(triggerSelector, modalSelector, crossSelector, modalTimerId, closeClickOverlay = true) {
 
     const triggerModal = document.querySelectorAll(triggerSelector);
     const modal = document.querySelector(modalSelector);
@@ -40,7 +55,7 @@ function modals(triggerSelector, modalSelector, crossSelector, closeClickOverlay
             if (event.target) {
                 event.preventDefault();
                 closeAll();
-                openModal(modalSelector, scroll);
+                openModal(modalSelector, scroll, modalTimerId);
             }
         });
     });
@@ -64,26 +79,12 @@ function modals(triggerSelector, modalSelector, crossSelector, closeClickOverlay
         }
     });
 
-    // const modalTimerId = setTimeout(() => openModal('.popup', scroll, modalTimerId), 60000);
 
-    // Расчет ширины скролла браузера
-    function calcScroll() {
-        const div = document.createElement('div');
-        div.style.width = '50px';
-        div.style.height = '50px';
-        div.style.overflowY = 'scroll';
-        div.style.visibility = 'hidden';
-
-        document.body.append(div);
-        const scroll = div.offsetWidth - div.clientWidth;
-        div.remove();
-
-        return scroll;
-    }
 }
-
 
 export default modals;
 export {
-    closeModal
+    openModal,
+    closeModal,
+    calcScroll
 };
