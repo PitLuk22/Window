@@ -78,8 +78,10 @@ const forms = (state) => {
                     setTimeout(() => {
                         statusMessage.remove();
                         //берем класс открытого модального окна
-                        let selector = elem.closest('div[data-modal]').getAttribute('class').replace(/^/, '.');
-                        closeModal(selector);
+                        if (elem.closest('div.main_form') != null) {
+                            let selector = elem.closest('div[data-modal]').getAttribute('class').replace(/^/, '.');
+                            closeModal(selector);
+                        }
                     }, 3000);
 
                 });

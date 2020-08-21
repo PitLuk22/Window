@@ -18029,8 +18029,10 @@ var forms = function forms(state) {
         setTimeout(function () {
           statusMessage.remove(); //берем класс открытого модального окна
 
-          var selector = elem.closest('div[data-modal]').getAttribute('class').replace(/^/, '.');
-          Object(_modals__WEBPACK_IMPORTED_MODULE_7__["closeModal"])(selector);
+          if (elem.closest('div.main_form') != null) {
+            var selector = elem.closest('div[data-modal]').getAttribute('class').replace(/^/, '.');
+            Object(_modals__WEBPACK_IMPORTED_MODULE_7__["closeModal"])(selector);
+          }
         }, 3000);
       });
     });
